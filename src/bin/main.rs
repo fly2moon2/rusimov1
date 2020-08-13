@@ -4,14 +4,19 @@ use std::net::TcpStream;
 use std::fs;
 use std::thread;
 use std::time::Duration;
+use rusimov1::ThreadPool;
 
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
+    let poolsize:usize = 4;
+    let pool = ThreadPool::new(poolsize);
 
     for stream in listener.incoming() {
         let stream = stream.unwrap();
 
+        pool.execute(|| {
         handle_connection(stream);
+    });
     }
 }
 
