@@ -6,9 +6,10 @@ use std::thread;
 use std::time::Duration;
 use rusimov1::ThreadPool;
 
+/// project pay tribute to doc.rust-lang.org::the Book::ch. 20
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
-    let poolsize:usize = 4;
+    let poolsize:usize = 6;
     let pool = ThreadPool::new(poolsize);
 
     for stream in listener.incoming() {
